@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32519.111
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLoads", "CustomLoads\CustomLoads.csproj", "{37BE60A2-EBCC-4F13-BCD5-4D82A4CCA5F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		v1.3|Any CPU = v1.3|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37BE60A2-EBCC-4F13-BCD5-4D82A4CCA5F1}.v1.3|Any CPU.ActiveCfg = v1.3|Any CPU
+		{37BE60A2-EBCC-4F13-BCD5-4D82A4CCA5F1}.v1.3|Any CPU.Build.0 = v1.3|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E068942-81F6-4B2E-916A-CAFF648C7EB7}
+	EndGlobalSection
+EndGlobal

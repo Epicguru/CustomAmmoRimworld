@@ -1,0 +1,76 @@
+
+<Defs>
+
+  <CustomLoads.BulletMaterialDef Name="BaseBulletMaterial" Abstract="true">
+    
+  </CustomLoads.BulletMaterialDef>
+  
+  <!-- Steel has no effect. -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Steel</defName>
+    <material>Steel</material>
+    <mods>
+      <!-- Can be applied to most parts of the bullet but does nothing -->
+      <li>
+        <parts>BulletCore, BulletJacket, BulletTip, Casing, Primer</parts>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+
+  <!-- Plasteel -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Plasteel</defName>
+    <material>Plasteel</material>
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <!-- +20% speed, -20% spread -->
+        <speed>x1.2</speed>
+        <spread>x0.8</spread>
+        <!-- -5 damage -->
+        <damage>-5</damage>
+      </li>
+      <li>
+        <parts>BulletJacket</parts>
+        <!-- +2 RHA, +1 MPa -->
+        <apSharp>+2</apSharp>
+        <apBlunt>+1</apBlunt>
+        <!-- -2 damage -->
+        <damage>-2</damage>
+      </li>
+      <li>
+        <parts>BulletTip</parts>
+        <!-- +50% and +2 armor pen -->
+        <apSharp>x1.5 +2</apSharp>
+        <apBlunt>x1.5 +2</apBlunt>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+
+  <!-- Gold -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Gold</defName>
+    <material>Gold</material>
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <damage>x2</damage>
+        <spread>x2</spread>
+        <speed>x0.4</speed>
+      </li>
+      <li>
+        <parts>BulletJacket</parts>
+        <apSharp>x0.6</apSharp>
+        <apBlunt>x0.6</apBlunt>
+        <damage>x1.3 +4</damage>
+      </li>
+      <li>
+        <parts>BulletTip</parts>
+        <apSharp>x0.5</apSharp>
+        <apBlunt>x0.5</apBlunt>
+        <damage>x1.3 +6</damage>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+
+</Defs>
