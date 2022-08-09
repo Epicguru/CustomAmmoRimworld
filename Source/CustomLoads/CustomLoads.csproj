@@ -17,6 +17,7 @@
 
   <!-- To be included regardless of rimworld version. -->
   <ItemGroup>
+    <PackageReference Include="BetterFloatMenu" Version="1.1.0" />
     <PackageReference Include="Lib.Harmony" Version="2.2.2" ExcludeAssets="runtime" />
     <PackageReference Include="Krafs.Publicizer" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -33,6 +34,9 @@
       <HintPath>CombatExtended_v13.dll</HintPath>
       <Private>false</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Patches\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='v1.3'">

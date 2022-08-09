@@ -28,7 +28,7 @@
         <speed>x1.2</speed>
         <spread>x0.8</spread>
         <!-- -5 damage -->
-        <damage>-5</damage>
+        <damage>-5</damage>        
       </li>
       <li>
         <parts>BulletJacket</parts>
@@ -43,6 +43,13 @@
         <!-- +50% and +2 armor pen -->
         <apSharp>x1.5 +2</apSharp>
         <apBlunt>x1.5 +2</apBlunt>
+      </li>
+      <li>
+        <parts>Casing</parts>
+        <!-- More recoil, more spread, more rate of fire -->
+        <recoil>x1.25</recoil>
+        <spread>+1</spread> <!-- Flat increase is generally better for spread because default spread values are so low -->
+        <rateOfFire>x0.75</rateOfFire>
       </li>
     </mods>
   </CustomLoads.BulletMaterialDef>
@@ -69,6 +76,25 @@
         <apSharp>x0.5</apSharp>
         <apBlunt>x0.5</apBlunt>
         <damage>x1.3 +6</damage>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+
+  <!-- Wood -->
+  <!-- Can only be applied to jacket. The bullet disintegrates in the barrel, into 5 fragments -->
+  <!-- Damage greatly increased, penetration reduced greatly. -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Wood</defName>
+    <material>WoodLog</material>
+    <mods>
+      <li>
+        <parts>BulletJacket</parts>
+        <apSharp>x0.05</apSharp>
+        <apBlunt>x0.2</apBlunt>
+        <damage>x0.4</damage>
+        <rateOfFire>x1.2</rateOfFire> <!-- Rate of fire stat is kind of backwards. Increasing it actually reduces rate of fire :) -->
+        <pelletCount>+4</pelletCount>
+        <spread>+15</spread>
       </li>
     </mods>
   </CustomLoads.BulletMaterialDef>

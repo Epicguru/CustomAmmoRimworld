@@ -7,16 +7,15 @@ namespace CustomLoads
 {
     public class AmmoModExtension : DefModExtension
     {
-        public Dictionary<StatDef, List<StatMod>> factors = new Dictionary<StatDef, List<StatMod>>();
-        public Dictionary<StatDef, List<StatMod>> offsets = new Dictionary<StatDef, List<StatMod>>();
+        public Dictionary<StatDef, List<StatMod>> statMods = new Dictionary<StatDef, List<StatMod>>();
     }
 
     public class StatMod
     {
-        public StatDef Stat => Mod.stat;
+        public StatDef Stat => DefDatabase<StatDef>.GetNamed(Mod.StatDefName);
 
         public BulletPart BulletPart;
         public BulletMaterialDef Material;
-        public StatModifier Mod;
+        public BulletPartMod.ModData Mod;
     }
 }
