@@ -2,7 +2,7 @@
 using CustomLoads.Bullet;
 using JetBrains.Annotations;
 using RimWorld;
-using System;
+using UnityEngine;
 using Verse;
 
 namespace CustomLoads;
@@ -36,8 +36,16 @@ public class StartPart_LoadedAmmo : StatPart
             offset += mod.Mod.Offset;
         }
 
+        float old = val;
         val *= factor;
         val += offset;
+
+
+        if (parentStat == CE_StatDefOf.TicksBetweenBurstShots)
+        {
+            if (val < 1f)
+                val = Mathf.Max(val, old);
+        }
     }
 
     public override string ExplanationPart(StatRequest req)
@@ -53,17 +61,7 @@ public class StartPart_LoadedAmmo : StatPart
         {
             foreach (var item in found)
             {
-                string part = item.BulletPart switch
-                {
-                    BulletPart.BulletCore => "core",
-                    BulletPart.BulletJacket => "jacket",
-                    BulletPart.BulletTip => "tip",
-                    BulletPart.Casing => "cartridge casing",
-                    BulletPart.Primer => "primer",
-                    BulletPart.Powder => "propellant",
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-                string label = $"{item.Material.TechLabel.CapitalizeFirst()} {part}";
+                string label = item.Material != null ? $"{item.Material.TechLabel.CapitalizeFirst()} {item.BulletPart.Label()}" : item.BulletPart.Label();
 
                 any = true;
                 if (parentStat == CE_StatDefOf.TicksBetweenBurstShots)

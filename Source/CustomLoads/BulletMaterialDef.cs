@@ -1,8 +1,9 @@
-﻿using System;
-using CustomLoads.Bullet;
+﻿using CustomLoads.Bullet;
+using System;
 using System.Collections.Generic;
-using Verse;
 using System.Linq;
+using UnityEngine;
+using Verse;
 
 namespace CustomLoads
 {
@@ -11,6 +12,9 @@ namespace CustomLoads
         private static readonly BulletPart[] allBulletParts = Enum.GetValues(typeof(BulletPart)).Cast<BulletPart>().ToArray();
 
         public string TechLabel => string.IsNullOrWhiteSpace(label) ? material.label : label;
+
+        public Color Tint => tint ?? material.stuffProps.color;
+        public Texture2D Icon => material.uiIcon;
 
         /// <summary>
         /// The material that it's made out of.
@@ -21,6 +25,10 @@ namespace CustomLoads
         /// Additional text description.
         /// </summary>
         public string extraDesc;
+
+        public float costPerBullet = 0.01f;
+
+        public Color? tint;
 
         public List<BulletPartMod> mods = new List<BulletPartMod>();
 

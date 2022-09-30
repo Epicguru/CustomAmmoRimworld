@@ -1,0 +1,44 @@
+<Patch>
+
+  <Operation Class="PatchOperationSequence">    
+    <operations>
+
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="ShotSpread"]/parts</xpath>
+        <value>
+          <li Class="CustomLoads.StartPart_LoadedAmmo" />
+        </value>
+      </li>
+
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="MuzzleFlash"]/parts</xpath>
+        <value>
+          <li Class="CustomLoads.StartPart_LoadedAmmo" />
+        </value>
+      </li>
+
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="TicksBetweenBurstShots"]/parts</xpath>
+        <value>
+          <li Class="CustomLoads.StartPart_LoadedAmmo" />
+        </value>
+      </li>
+
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="BurstShotCount"]/parts</xpath>
+        <value>
+          <li Class="CustomLoads.StartPart_LoadedAmmo" />
+        </value>
+      </li>
+      
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/StatDef[defName="Recoil"]/parts</xpath>
+        <value>
+          <li Class="CustomLoads.StartPart_LoadedAmmo" />
+        </value>
+      </li>
+
+    </operations>
+  </Operation>
+
+</Patch>

@@ -1,0 +1,152 @@
+<Defs>
+  
+  <CustomLoads.UIAnimationDef>
+    <defName>UIAnim_BulletExplode</defName>
+
+    <parts>
+
+      <li>
+        <ID>Primer</ID>
+        <texture>CustomLoads/Primer</texture>
+        <offset>(0, 0)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+          </li>
+          <li>
+            <time>1</time>
+            <pos>(-50, 0)</pos>
+          </li>
+        </keyframes>
+      </li>
+
+      <li>
+        <ID>BulletJacket</ID>
+        <texture>CustomLoads/BulletBG</texture>
+        <offset>(444, 32)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+            <color>(1, 1, 1, 0)</color>
+          </li>
+          <li>
+            <time>0.2</time>
+            <pos>(28, 0)</pos>
+          </li>
+          <li>
+            <time>0.5</time>
+            <pos>(140, 0)</pos>
+          </li>
+          <li>
+            <time>1</time>
+            <pos>(140, 0)</pos>
+          </li>
+        </keyframes>
+      </li>
+
+      <li>
+        <ID>BulletCore</ID>
+        <texture>CustomLoads/Pen</texture>
+        <offset>(452, 45)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+          </li>
+          <li>
+            <time>0.5</time>
+            <pos>(140, 0)</pos>
+          </li>
+          <li>
+            <time>1</time>
+            <pos>(140, -100)</pos>
+          </li>
+        </keyframes>
+      </li>
+
+      <li>
+        <ID>BulletTip</ID>
+        <texture>CustomLoads/Tip</texture>
+        <offset>(633, 37)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+          </li>
+          <li>
+            <time>1</time>
+            <pos>(220, 0)</pos>
+          </li>
+        </keyframes>
+      </li>
+
+      <li>
+        <ID>BulletJacket</ID>
+        <texture>CustomLoads/Bullet</texture>
+        <offset>(438, 25)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+          </li>
+          <li>
+            <time>0.2</time>
+            <pos>(28, 0)</pos>
+          </li>
+          <li>
+            <time>0.5</time>
+            <pos>(140, 0)</pos>
+          </li>
+          <li>
+            <time>1</time>
+            <pos>(140, 0)</pos>
+          </li>
+        </keyframes>
+      </li>
+
+      <li>
+        <ID>BulletJacket</ID>
+        <texture>CustomLoads/BulletFull</texture>
+        <offset>(438, 25)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+          </li>
+          <li>
+            <time>0.2</time>
+            <pos>(28, 0)</pos>
+            <color>(1, 1, 1, 0)</color>
+          </li>
+          <li>
+            <time>0.5</time>
+            <pos>(140, 0)</pos>
+            <color>(1, 1, 1, 0)</color>
+          </li>
+          <li>
+            <time>1</time>
+            <pos>(140, 0)</pos>
+            <color>(1, 1, 1, 0)</color>
+          </li>
+        </keyframes>
+      </li>
+
+      <li>
+        <ID>Casing</ID>
+        <texture>CustomLoads/Casing</texture>
+        <offset>(37, 2)</offset>
+        <keyframes>
+          <li>
+            <time>0</time>
+            <pos>(0, 0)</pos>
+          </li>
+        </keyframes>
+      </li>
+
+    </parts>
+
+  </CustomLoads.UIAnimationDef>
+
+</Defs>

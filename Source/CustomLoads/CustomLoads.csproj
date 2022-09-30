@@ -35,18 +35,14 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patches\" />
-  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='v1.3'">
     <DebugType>none</DebugType>
     <OutputPath>..\..\1.3\Assemblies\</OutputPath>
     <DefineConstants>V13</DefineConstants>
 
-    <Optimize>false</Optimize>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
 </Project>

@@ -1,22 +1,21 @@
 ﻿using CombatExtended;
+using CustomLoads.UI;
 using CustomLoads.Utils;
-using RimWorld;
+using HarmonyLib;
 using System;
 using System.Linq;
 using System.Reflection;
-using CustomLoads.Bullet;
 using UnityEngine;
 using Verse;
-using System.Collections.Generic;
-using EpicUtils;
-using HarmonyLib;
 
 namespace CustomLoads;
 
 [HotSwapAll]
 public class Core : Mod
 {
+    public static Core Instance { get; private set; }
     public static ModContentPack ContentPack { get; private set; }
+    public static Settings Settings { get; private set; }
 
     internal static void Log(string message)
     {
@@ -37,10 +36,56 @@ public class Core : Mod
 
     public Core(ModContentPack content) : base(content)
     {
-        Log("Hello, world!");
+        Instance = this;
+        //Log("Hello, world!");
 
         new Harmony(content.PackageId).PatchAll();
         ContentPack = content;
+
+        LongEventHandler.QueueLongEvent(Window_CustomLoadEditor.Init, "Custom Loads: Init", false, null);
+        LongEventHandler.QueueLongEvent(GenerateAmmo, "Custom Loads: Generate Ammo", false, null);
+    }
+
+    private void GenerateAmmo()
+    {
+        try
+        {
+            Settings = GetSettings<Settings>();
+        }
+        catch (Exception e)
+        {
+            Error("Failed to load settings - this is probably because of a missing mod.", e);
+        }
+
+        foreach (var load in Settings.CustomAmmo)
+        {
+            if (load == null)
+            {
+                Error("Loaded null custom ammo. This will result in loss of the ammo, and possibly broken saves. Please report, including details about what mods you added or removed.");
+                continue;
+            }
+
+            if (load.IsErrored)
+            {
+                Warn($"Custom ammo '{load.Label}' failed to load - this is probably because of a missing mod.");
+                continue;
+            }
+
+            load.GenerateDefs(load.AmmoTemplate, load.BulletTemplate, load.IsLocked);
+            if (load.IsLocked)
+                Log($"Generated ammo, bullet, recipe for '{load.Label}'");
+        }
+    }
+
+    public override string SettingsCategory()
+    {
+        return ContentPack.Name;
+    }
+
+    public override void DoSettingsWindowContents(Rect inRect)
+    {
+        base.DoSettingsWindowContents(inRect);
+        Settings?.Draw(inRect);
     }
 
     private static FieldInfo[] ammoDefFields;
@@ -89,85 +134,5 @@ public class Core : Mod
 
         created.projectile = proj;
         return created;
-    }
-}
-
-public class MyGameComp : GameComponent
-{
-    private string name = "CUSTOM AMMO";
-    private int i;
-    private CustomLoad load = new CustomLoad();
-
-    private AmmoDef baseAmmo;
-    private ThingDef baseBullet;
-
-    public MyGameComp(Game _)
-    {
-    }
-
-    public override void GameComponentOnGUI()
-    {
-        base.GameComponentOnGUI();
-
-        name = GUILayout.TextField(name, GUILayout.MinWidth(100));
-
-        var materials = DefDatabase<BulletMaterialDef>.AllDefsListForReading;
-
-        foreach (BulletPart e in Enum.GetValues(typeof(BulletPart)))
-        {
-            BulletMaterialDef value = load.Parts.GetValueOrDefault(e);
-
-            if (GUILayout.Button($"[{e}]: {value?.TechLabel ?? "<None>"}"))
-            {
-                var elem = materials.Where(m => m.CanApplyTo(e)).RandomElementWithFallback();
-                if (elem != null)
-                    load.Parts[e] = elem;
-            }
-
-            if (value != null)
-            {
-                var desc = value.TryGetModFor(e).Description;
-                GUILayout.Label(desc);
-            }
-        }
-
-        if (load.Ammo != null)
-        {
-            GUILayout.Space(20);
-            GUILayout.Label(load.TechnicalDescription);
-            GUILayout.Space(20);
-        }
-
-        if (GUILayout.Button("Select Base Bullet"))
-        {
-            var rawItems = DefDatabase<AmmoSetDef>.AllDefsListForReading.Where(s => !s.ammoTypes[0].ammo.menuHidden);
-            var items = BetterFloatMenu.MakeItems(rawItems, r => new MenuItemText(r, r.LabelCap, r.ammoTypes[0].ammo.IconTexture()));
-            BetterFloatMenu.Open(items, sel =>
-            {
-                var set = sel.GetPayload<AmmoSetDef>();
-
-                var newItems = BetterFloatMenu.MakeItems(set.ammoTypes,
-                    link => new MenuItemText(link, link.ammo.LabelCap, link.ammo.IconTexture()));
-
-                BetterFloatMenu.Open(newItems, link =>
-                {
-                    var pl = link.GetPayload<AmmoLink>();
-                    baseAmmo = pl.ammo;
-                    baseBullet = pl.projectile;
-
-                }).optionalTitle = "Select type to inherit from";
-
-            }).optionalTitle = "Select Caliber";
-        }
-
-        if (baseAmmo == null || baseBullet == null || !GUILayout.Button("Create!"))
-            return;
-
-        load.GenerateDefs(baseAmmo, baseBullet, $"{baseAmmo.defName}_custom{i++}");
-
-        load.Ammo.label = name;
-        load.Bullet.label = $"{name} bullet";
-
-        Core.Log($"Generated {load.Ammo} based on {baseAmmo}");
     }
 }
