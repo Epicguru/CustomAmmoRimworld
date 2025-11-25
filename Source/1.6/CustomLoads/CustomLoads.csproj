@@ -1,10 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <AssemblyName>CustomLoads</AssemblyName>
+    <RootNamespace>CustomLoads</RootNamespace>
+    
     <TargetFramework>net472</TargetFramework>
     <LangVersion>14</LangVersion>
+    
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <NoStdLib>false</NoStdLib>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>none</DebugType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BetterFloatMenu" Version="16.0.0" />
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.2">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="PolySharp" Version="1.15.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <Publicize Include="Assembly-CSharp" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="CombatExtended">
+      <HintPath>RefAssemblies/CombatExtended.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  
+  <!-- Output -->
+  <PropertyGroup>
+    <OutputPath>..\..\..\1.6\Assemblies\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
 </Project>
