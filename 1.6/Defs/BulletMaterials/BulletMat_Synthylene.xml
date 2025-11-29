@@ -1,0 +1,26 @@
+<Defs>
+  <!-- Rimfeller's Synthylene -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial" MayRequire="Dubwise.Rimefeller">
+    <defName>BulletMat_Synthylene</defName>
+    <material>Synthylene</material>
+    <costPerBullet>0.06</costPerBullet> <!-- 30 for 500 bullets -->
+    <mods>
+      <li>
+        <parts>BulletJacket</parts>
+        <desc>A Synthylene jacket is very light and aerodynamic but needs a strong core to make up for its poor penetration and damage.</desc>
+        <damage>x0.75 -1</damage>
+        <spread>+0.2</spread>
+        <speed>x1.5</speed>
+        <mass>x0.7</mass>
+        <apSharp>x0.6</apSharp>
+        <apBlunt>x0.6</apBlunt>
+      </li>
+      <li>
+        <parts>Casing</parts>
+        <desc>The Synthylene casing is lightweight and makes extraction more reliable.</desc>
+        <rateOfFire>x1.05</rateOfFire>
+        <mass>x0.8</mass>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>

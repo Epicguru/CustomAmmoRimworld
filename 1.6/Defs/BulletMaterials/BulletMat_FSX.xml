@@ -1,0 +1,29 @@
+<Defs>
+  <!-- CE's FSX -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_FSX</defName>
+    <material>FSX</material>
+    <costPerBullet>0.06</costPerBullet> <!-- 30 for 500 bullets -->
+    <tint>(66, 56, 84, 255)</tint>
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>The core of the bullet has been packed with FSX high explosive. It is lightweight and highly destructive.</desc>
+        <speed>x1.75</speed>
+        <apSharp>x1.6</apSharp>
+        <apBlunt>x2</apBlunt>
+        <recoil>x2</recoil>
+        <spread>x1.5 +3</spread>
+        <secondaryDamages>
+          <li>
+            <def>Bomb_Secondary</def>
+            <amount>25</amount>
+            <chance>1</chance>
+          </li>
+        </secondaryDamages>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>
+
+	

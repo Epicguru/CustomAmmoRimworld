@@ -13,7 +13,7 @@ namespace CustomLoads
 
         public string TechLabel => string.IsNullOrWhiteSpace(label) ? material.label : label;
 
-        public Color Tint => tint ?? material.stuffProps.color;
+        public Color Tint => tint ?? material.stuffProps?.color ?? Color.white;
         public Texture2D Icon => material.uiIcon;
 
         /// <summary>
