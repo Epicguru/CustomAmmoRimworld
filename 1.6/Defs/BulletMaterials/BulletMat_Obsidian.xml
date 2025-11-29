@@ -1,0 +1,33 @@
+<Defs>
+  <!-- Obsidian -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial" MayRequire="Ludeon.RimWorld.Odyssey">
+    <defName>BulletMat_Obsidian</defName>
+    <material>Obsidian</material>
+    <costPerBullet>0.005</costPerBullet>
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>The Obsidian core is brittle, and shatters upon impact.</desc>
+        <speed>x0.9</speed>
+        <damage>x1.5 +5</damage>
+        <recoil>x1.2</recoil>
+        <spread>+0.25</spread>
+      </li>
+      <li>
+        <parts>BulletJacket</parts>
+        <desc>The Obsidian jacket is brittle, and shatters upon impact.</desc>
+        <damage>x1.2 +3</damage>
+        <recoil>x1.1</recoil>
+      </li>
+      <li>
+        <parts>BulletTip</parts>
+        <desc>The Obsidian jacket is brittle yet sharp, and shatters upon impact.</desc>
+        <damage>x1.2 +1</damage>
+        <recoil>x1.1</recoil>
+        <speed>x0.95</speed>
+        <apSharp>x0.8</apSharp>
+        <apBlunt>x0.8</apBlunt>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>

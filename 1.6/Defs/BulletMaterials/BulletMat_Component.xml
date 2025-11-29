@@ -1,0 +1,27 @@
+<Defs>
+  <!-- Components (EMP) -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Component</defName>
+    <material>ComponentIndustrial</material>
+    <label>EMP cell</label>
+    <tint>(0.05, 0.937, 1.0, 1.0)</tint>
+    <costPerBullet>0.01</costPerBullet>
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>Complex electronics and ultracapacitors replace a conventional metallic core, delivering a powerful EMP upon impact.\nThe low weight and uneven mass distribution of these components cause the bullet to tumble, ruining most ballistic properties.\nIt should still be very effective against mechanoids though.</desc>
+        <speed>x1.5</speed>
+        <damage>x0.1 +1</damage>
+        <apSharp>x0.1</apSharp>
+        <apBlunt>x0.1</apBlunt>
+        <secondaryDamages>
+          <li>
+            <def>EMP</def>
+            <amount>8</amount>
+            <chance>1</chance>
+          </li>
+        </secondaryDamages>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>

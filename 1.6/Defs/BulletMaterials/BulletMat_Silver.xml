@@ -1,0 +1,34 @@
+<Defs>
+  <!-- Silver -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Silver</defName>
+    <material>Silver</material>
+    <costPerBullet>0.02</costPerBullet> <!-- 10 for 500 bullets -->
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>A dense silver core increases the mass of the bullet, granting higher damage but lower accuracy and velocity.</desc>
+        <damage>x1.5</damage>
+        <spread>+0.3</spread>
+        <speed>x0.65</speed>
+        <mass>x1.15</mass>
+      </li>
+      <li>
+        <parts>BulletJacket</parts>
+        <desc>A solid silver jacket deforms to increase damage agaist soft targets, but is less effective against armor.</desc>
+        <damage>x1.2 +1</damage>
+        <apSharp>x0.75</apSharp>
+        <apBlunt>x0.75</apBlunt>
+        <mass>x1.1</mass>
+      </li>
+      <li>
+        <parts>BulletTip</parts>
+        <desc>The soft silver tip deforms easily, increasing damage against unaromored targets. It is not useful against armor, however.</desc>
+        <damage>x1.2 +2</damage>
+        <apSharp>x0.7</apSharp>
+        <apBlunt>x0.7</apBlunt>
+        <mass>x1.1</mass>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>

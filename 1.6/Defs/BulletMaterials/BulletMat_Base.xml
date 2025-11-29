@@ -1,0 +1,3 @@
+<Defs>
+  <CustomLoads.BulletMaterialDef Name="BaseBulletMaterial" Abstract="true" />
+</Defs>

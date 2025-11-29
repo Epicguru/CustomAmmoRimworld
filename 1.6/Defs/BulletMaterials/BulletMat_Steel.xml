@@ -1,0 +1,14 @@
+<Defs>
+  <!-- Steel has no effect. -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Steel</defName>
+    <material>Steel</material>
+    <costPerBullet>0</costPerBullet> <!-- Free -->
+    <mods>
+      <!-- Can be applied to most parts of the bullet but does nothing -->
+      <li>
+        <parts>BulletCore, BulletJacket, BulletTip, Casing, Primer</parts>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>

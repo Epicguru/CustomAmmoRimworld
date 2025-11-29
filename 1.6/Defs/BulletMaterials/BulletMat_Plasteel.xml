@@ -1,0 +1,47 @@
+<Defs>
+  <!-- Plasteel -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Plasteel</defName>
+    <material>Plasteel</material>
+    <costPerBullet>0.02</costPerBullet> <!-- 10 for 500 bullets -->
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>A lightweight plasteel penetrating core increases muzzle velocity but the reduced mass comes at the cost of damage.</desc>
+        <!-- +20% speed, -20% spread -->
+        <speed>x1.2</speed>
+        <spread>x0.8</spread>
+        <mass>x0.9</mass>
+        <!-- -5 damage -->
+        <damage>-5</damage>
+      </li>
+      <li>
+        <parts>BulletJacket</parts>
+        <desc>The plasteel armor-piercing cap is effective against thin armor, but can cause overpenetration and loss of damage.</desc>
+        <!-- +2 RHA, +1 MPa -->
+        <apSharp>+2</apSharp>
+        <apBlunt>+1</apBlunt>
+        <mass>x0.9</mass>
+        <!-- -2 damage -->
+        <damage>-2</damage>
+      </li>
+      <li>
+        <parts>BulletTip</parts>
+        <desc>Plasteel makes an excellent material for the tip of the projectile, greatly increasing armor penetration capabilities.</desc>
+        <!-- +50% and +2 armor pen -->
+        <apSharp>x1.5 +2</apSharp>
+        <apBlunt>x1.5 +2</apBlunt>
+        <mass>x0.9</mass>
+      </li>
+      <li>
+        <parts>Casing</parts>
+        <desc>Lightweight plasteel used in the cartridge casing allows the weapon to cycle faster, but this also makes it less controllable.</desc>
+        <!-- More recoil, more spread, more rate of fire -->
+        <rateOfFire>x1.4</rateOfFire>
+        <recoil>x1.25</recoil>
+        <mass>x0.75</mass>
+        <spread>+0.2</spread> <!-- Flat increase is generally better for spread because default spread values are so low -->
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>

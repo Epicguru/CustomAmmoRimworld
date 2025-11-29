@@ -1,0 +1,43 @@
+<Defs>
+  <!-- Granite -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial">
+    <defName>BulletMat_Stone</defName>
+    <material>BlocksGranite</material>
+    <costPerBullet>0.004</costPerBullet>
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>The solid stone core disintegrates upon impact, increasing damage. It is very heavy though, leading to increased recoil and reduced velocity.</desc>
+        <speed>x0.5</speed>
+        <mass>x2</mass>
+        <recoil>x1.5</recoil>
+        <spread>+1.25</spread>
+        <damage>x2.25</damage>
+      </li>
+      <li>
+        <parts>BulletJacket</parts>
+        <desc>The stone jacket shears and shatters upon impact, increasing damage. It won't be going through any armor though.</desc>
+        <damage>x1.6</damage>
+        <recoil>x1.35</recoil>
+        <mass>x1.5</mass>
+        <apSharp>x0.4</apSharp>
+        <apBlunt>x0.8</apBlunt>
+      </li>
+      <li>
+        <parts>BulletTip</parts>
+        <desc>The stone tip fragments upon impact, increasing damage. The increased mass does have negative effects, however.</desc>
+        <damage>+8</damage>
+        <recoil>x1.1</recoil>
+        <speed>x0.8</speed>
+        <spread>+0.2</spread>
+      </li>
+      <li>
+        <parts>Casing</parts>
+        <desc>The casing is somehow made out of stone. This greatly reduces the cyclic rate and recoil, but adds mass.</desc>
+        <recoil>x0.4</recoil>
+        <rateOfFire>x0.4</rateOfFire>
+        <mass>x2</mass>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>
