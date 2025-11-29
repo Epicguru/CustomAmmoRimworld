@@ -3,8 +3,9 @@
 
 	<name>CE Custom Ammo</name>
 	<packageId>bg.customloads</packageId>
-	<author>Bathub Goblin</author>
-	<description>Adds the ability to create custom CE ammo from various materials.</description>
+	<author>Bathub Goblin, SodaCats, Epicguru</author>
+	<description>Adds the ability to create custom CE ammo from various materials.
+This is the updated 1.6 version of the mod.</description>
 
 	<supportedVersions>
 		<li>1.6</li>
