@@ -91,7 +91,7 @@ public class Window_CustomLoadEditor : Window
         ammoSetMenuItems = new List<MenuItemBase>(allowedAmmoSetDefs.Count);
         foreach (var set in allowedAmmoSetDefs)
         {
-            string label = set.LabelCap + $" ({set.defName})";
+            string label = set.LabelCap;
             var icon = set.ammoTypes[0].ammo.IconTexture();
             string tooltip = $"Guns that use this:\n{string.Join("\n", set.ammoTypes.SelectMany(l => l.ammo.Users).Distinct().Select(t => t.LabelCap.ToString()))}";
 
