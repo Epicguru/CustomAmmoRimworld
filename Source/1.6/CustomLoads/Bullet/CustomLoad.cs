@@ -14,6 +14,13 @@ public class CustomLoad : IExposable
 {
     private static (AmmoDef ammo, ThingDef bullet) CloneAmmo(AmmoDef ammoTemplate, ThingDef bulletTemplate, string defName, bool register)
     {
+        /*
+         * 1.6 update notes:
+         * The bullet template used here is incorrect - it should be using the (fmj) bullet def from whatever ammo set it is being added to, rather than using
+         * the fmj from the base ammo set. This is because different ammo sets can use different projectiles for the same ammo def.
+         * This bug has yet to be fixed due to running out of time on the mod commission.
+         */
+        
         if (ammoTemplate == null)
             return (null, null);
 

@@ -1,0 +1,17 @@
+<Defs>
+  <!-- Vanilla Expanded Psycasts Eltex -->
+  <CustomLoads.BulletMaterialDef ParentName="BaseBulletMaterial" MayRequire="VanillaExpanded.VPsycastsE">
+    <defName>BulletMat_Eltex</defName>
+    <material>VPE_Eltex</material>
+    <costPerBullet>0.06</costPerBullet> <!-- 30 for 500 bullets -->
+    <mods>
+      <li>
+        <parts>BulletCore</parts>
+        <desc>The Eltex core is lightweight, enhancing accuracy and control at the cost of damage.</desc>
+        <damage>x0.9 -1</damage>
+        <spread>x0.6</spread>
+        <recoil>x0.75</recoil>
+      </li>
+    </mods>
+  </CustomLoads.BulletMaterialDef>
+</Defs>
