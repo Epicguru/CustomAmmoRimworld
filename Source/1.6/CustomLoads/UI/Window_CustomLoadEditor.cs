@@ -1,12 +1,13 @@
-﻿using CombatExtended;
-using CustomLoads.Bullet;
-using EpicUtils;
-using JetBrains.Annotations;
-using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CombatExtended;
+using CustomLoads.Bullet;
+using CustomLoads.Patches;
+using EpicUtils;
+using JetBrains.Annotations;
 using LudeonTK;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -472,7 +473,7 @@ public class Window_CustomLoadEditor : Window
 
             var load = new CustomLoad
             {
-                DefName = $"CustomAmmo_{Guid.NewGuid().ToString().Replace('d', '_')}", // Don't ask why replacing 'd' is necessary. It is.
+                DefName = GenerateRandomDefName(fmj),
                 AmmoTemplate = fmj,
                 BulletTemplate = bullet
             };
@@ -486,6 +487,27 @@ public class Window_CustomLoadEditor : Window
 
         });
         menu.optionalTitle = "Select caliber for new ammo";
+    }
+
+    private static string GenerateRandomDefName(AmmoDef basedOn)
+    {
+        // Def names should not contain numbers since ThingID generator appends a ID number to the def name automatically,
+        // and later reads the ID number back using a dumb regex that just extracts the first number that it finds.
+        // If you put a number in the def name, it breaks that ID reading and breaks saves.
+        const string RANDOM_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const int LENGTH = 4;
+
+        string defName;
+        do
+        {
+            defName = $"CustomAmmo_{basedOn.defName}_";
+            for (int i = 0; i < LENGTH; i++)
+            {
+                defName += RANDOM_CHARS[Rand.Range(0, RANDOM_CHARS.Length)];
+            }
+        } while (DefDatabase<AmmoDef>.GetNamedSilentFail(defName) != null);
+
+        return defName;
     }
 
     public static string GetErrorPreCreate(CustomLoad ammo)
@@ -659,10 +681,10 @@ public class Window_CustomLoadEditor : Window
             if (currentAmmoGun == null || !current.Ammo.Users.Contains(currentAmmoGun))
                 currentAmmoGun = GetCurrentAmmoGun();
 
-            Patches.Patch_ThingIDMaker_GiveIDTo.Active = true;
+            Patch_ThingIDMaker_GiveIDTo.Active = true;
             var gunInstance = ThingMaker.MakeThing(currentAmmoGun);
             var gunInstance2 = ThingMaker.MakeThing(currentAmmoGun);
-            Patches.Patch_ThingIDMaker_GiveIDTo.Active = false;
+            Patch_ThingIDMaker_GiveIDTo.Active = false;
 
             var comp = gunInstance.TryGetComp<CompAmmoUser>();
             comp.ResetAmmoCount(current.Ammo);

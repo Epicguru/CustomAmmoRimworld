@@ -4,19 +4,19 @@
     <defName>BulletMat_Toxpack</defName>
     <material>Wastepack</material>
     <label>wastepack</label>
-    <tint>(0.05, 0.937, 1.0, 1.0)</tint>
+    <tint>(95, 212, 142, 255)</tint>
     <costPerBullet>0.05</costPerBullet>
     <mods>
       <li>
         <parts>BulletJacket</parts>
         <desc>The bullet jacket has been made out of highly compacted toxic waste, greatly reducing its damage and penetration but delivering toxic buildup straight to the target.</desc>
         <damage>x0.5</damage>
-        <apSharp>x0.5 - 2</apSharp>
-        <apBlunt>x0.5 - 2</apBlunt>
+        <apSharp>x0.5 -2</apSharp>
+        <apBlunt>x0.5 -2</apBlunt>
         <secondaryDamages>
           <li>
             <def>BulletToxic</def>
-            <amount>1</amount>
+            <amount>4</amount>
             <chance>1</chance>
           </li>
         </secondaryDamages>
