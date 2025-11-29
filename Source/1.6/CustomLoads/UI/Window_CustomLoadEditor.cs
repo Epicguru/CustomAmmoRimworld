@@ -25,30 +25,73 @@ public class Window_CustomLoadEditor : Window
 
     public static void Init()
     {
-        allowedAmmoSetDefs = new HashSet<AmmoSetDef>();
-        foreach (var ammo in DefDatabase<AmmoSetDef>.AllDefsListForReading)
+        /*
+         * 1.6 update notes:
+         * At some point since 1.3 ammo sets started being used a bit differently:
+         * Now some ammo sets are unique to a specific gun, which allows the gun to fire different projectiles for the same ammo def.
+         * For example, .44 magnum out of a regular revolver fires one projectile, but out of a spacer revolver it fires a different projectile whilst still using the same ammo def but a different ammo set.
+         * To account for this, we filter out ammo sets that are identical to existing ammo sets. Identical meaning that they have the same ammo defs, but different projectiles are allowed.
+         * See AmmoSet_44Magnum and AmmoSet_44Magnum_HV for examples of ammo sets that are considered identical for our purposes.
+         * Note that when creating new custom ammo, it will automatically register the new ammo def to all ammo sets that use the same ammo def:
+         * For example, when creating a new variant of Ammo_44Magnum_FMJ (ammo def), it will be added to both AmmoSet_44Magnum and AmmoSet_44Magnum_HV (ammo sets) automatically.
+         */
+
+        // A list of all ammo sets that have FMJ ammo types.
+        var ammoSetsWithFMJ = new List<AmmoSetDef>();
+        foreach (var ammoSet in DefDatabase<AmmoSetDef>.AllDefsListForReading)
         {
             // menuHidden means that it is disabled.
             // because no guns use it.
-            if (ammo.ammoTypes[0].ammo.menuHidden)
+            if (ammoSet.ammoTypes[0].ammo.menuHidden)
                 continue;
 
             // No mortar stuff, thanks.
-            if (ammo.isMortarAmmoSet)
+            if (ammoSet.isMortarAmmoSet)
                 continue;
 
             // Must have an FMJ type.
-            if (TryGetFMJ(ammo, out _) == null)
+            var fmj = TryGetFMJ(ammoSet, out _);
+            if (fmj == null)
                 continue;
+            
+            // Could check FMJ details here for more filtering.
 
-            // TODO filter out crap like arrows, grenades.
-            allowedAmmoSetDefs.Add(ammo);
+            ammoSetsWithFMJ.Add(ammoSet);
+        }
+        
+        Core.Log($"Found {ammoSetsWithFMJ.Count} ammo set defs with FMJ ammo types.");
+        
+        static string GetAmmoSetKey(AmmoSetDef set)
+        {
+            // Create a key based on the ammo defs in this set, sorted to ensure that order doesn't matter.
+            var ammoDefNames = set.ammoTypes.Select(t => t.ammo.defName).OrderBy(n => n);
+            return string.Join("|", ammoDefNames);
+        }
+        
+        // Group these ammo sets into groups that contain the same ammo defs.
+        var grouped = ammoSetsWithFMJ.GroupBy(GetAmmoSetKey).ToList();
+        Core.Log($"Grouped into {grouped.Count} unique ammo set groups based on ammo defs:");
+        
+        // For each group, select the most representative ammo set to use.
+        // A basic heuristic is to select the ammo set with the shortest defName, simply because most often the derivative sets have longer names such as "_HV", etc.
+        static AmmoSetDef SelectRepresentativeSet(IGrouping<string, AmmoSetDef> group)
+        {
+            return group.OrderBy(s => s.defName.Length).First();
         }
 
+        var mergedSets = grouped.Select(g => (SelectRepresentativeSet(g), g.ToList())).ToList();
+        foreach (var (representative, group) in mergedSets)
+        {
+            Core.Log($"'{representative.LabelCap}' contains {group.Count} ammo set(s): {string.Join(", ", group.Select(s => s.defName))}");
+        }
+
+        // Finally put into allowed sets.
+        allowedAmmoSetDefs = new HashSet<AmmoSetDef>(mergedSets.Select(t => t.Item1));
+        
         ammoSetMenuItems = new List<MenuItemBase>(allowedAmmoSetDefs.Count);
         foreach (var set in allowedAmmoSetDefs)
         {
-            string label = set.LabelCap;
+            string label = set.LabelCap + $" ({set.defName})";
             var icon = set.ammoTypes[0].ammo.IconTexture();
             string tooltip = $"Guns that use this:\n{string.Join("\n", set.ammoTypes.SelectMany(l => l.ammo.Users).Distinct().Select(t => t.LabelCap.ToString()))}";
 
@@ -206,19 +249,28 @@ public class Window_CustomLoadEditor : Window
 
             var gpPos = iconPos;
             gpPos.x += 38;
-            gpPos.width = 230;
+            gpPos.width = 240;
             gpPos.height = 100;
             GUI.color = new Color(1, 1, 1, Mathf.Clamp01((key.time - 0.5f) / 0.5f));
             Widgets.Label(gpPos, txt);
 
-            var slider = new Rect(iconPos.position + new Vector2(0, 38), new Vector2(iconPos.width + 220, 12));
+            var slider = new Rect(iconPos.position + new Vector2(0, 38), new Vector2(iconPos.width + 240, 12));
 
-            Widgets.DrawBoxSolid(slider.ExpandedBy(6, 3), Color.white * 0.45f * Mathf.Clamp01((key.time - 0.5f) / 0.5f));
+            if (!drawing.IsLocked)
+            {
+                Widgets.DrawBoxSolid(slider.ExpandedBy(6, 3), Color.white * 0.45f * Mathf.Clamp01((key.time - 0.5f) / 0.5f));
+            }
 
             if (Mathf.RoundToInt(drawing.PowderSliderFloat) != drawing.PowderLoad)
                 drawing.PowderSliderFloat = drawing.PowderLoad;
 
-            drawing.PowderSliderFloat = Widgets.HorizontalSlider(slider, drawing.PowderSliderFloat, -3, 4, roundTo: 1);
+            
+            // If alpha is 0, do not draw slider.
+            // If ammo is locked (cannot be changed), do not draw slider.
+            if (Mathf.Clamp01((key.time - 0.5f) / 0.5f) > 0f && !drawing.IsLocked)
+            {
+                drawing.PowderSliderFloat = Widgets.HorizontalSlider(slider, drawing.PowderSliderFloat, -3, 4, roundTo: 1);
+            }
             int updated = Mathf.RoundToInt(drawing.PowderSliderFloat);
             if (updated != drawing.PowderLoad && !drawing.IsLocked)
                 drawing.PowderLoad = updated;
@@ -624,8 +676,10 @@ public class Window_CustomLoadEditor : Window
             header.width = 300;
             header.height -= 4;
             Widgets.DefLabelWithIcon(header, currentAmmoGun);
-            if (Widgets.ButtonInvisible(header))
+            if (Widgets.ButtonInvisible(header) && current.Ammo.Users.Count > 1) // Only open if there are other guns to select, otherwise it closes immediately and logs warning.
+            {
                 SelectNewGun();
+            }
 
             bars.yMin += 30;
 
