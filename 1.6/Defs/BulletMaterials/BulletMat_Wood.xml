@@ -21,6 +21,17 @@
         <rateOfFire>x0.75</rateOfFire>
         <mass>x0.5</mass>
       </li>
+      <li>
+        <parts>Casing</parts>
+        <desc>The casing is made out of wood, somehow. "Terrible by all metrics... except cost."</desc>
+        <damage>x0.7</damage>
+        <apSharp>x0.7</apSharp>
+        <apBlunt>x0.3</apBlunt>
+        <spread>+1</spread>
+        <speed>x0.25</speed>
+        <rateOfFire>x0.5</rateOfFire>
+        <mass>x0.5</mass>
+      </li>
     </mods>
   </CustomLoads.BulletMaterialDef>
 </Defs>
